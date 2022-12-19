@@ -1,18 +1,20 @@
 const express = require('express');
-const path = require("path");
+const path = require('path');
 const passport = require('passport');
 const session = require('express-session');
-const app = express();
 const bodyParser = require('body-parser')
-const { flash } = require('express-flash-message');
-const Sentry = require('@sentry/node')
-const Tracing = require('@sentry/tracing')
+const flash = require('connect-flash');
+const Sentry = require('@sentry/node');
+const Tracing = require('@sentry/tracing');
+const router = require('./src/routes/web');
 
-const router = require('./src/routes/web')
+const app = express();
 
 app.set('views', path.join(__dirname, './views'));
 app.set('view engine', 'ejs');
+
 app.use(express.static( 'public'));
+
 app.use(session({
     secret: 'keyboard cat',
     resave: false,
@@ -29,7 +31,6 @@ app.use(function(req,res,next){
     res.locals.currentUser = req.user;
     next();
 })
-app.use(flash({ sessionKeyName: 'flashMessage' }));
 
 Sentry.init({
     dsn: "https://c464a3968c5d4de6bfbbbe80f4d8a7c5@o4504336658726912.ingest.sentry.io/4504336660234241",

@@ -4,7 +4,6 @@ const checkAuth = (req, res, next) => {
     } else {
         return res.redirect('/admin/login')
     }
-
 }
 
 module.exports = checkAuth;

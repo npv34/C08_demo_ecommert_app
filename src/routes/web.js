@@ -23,8 +23,21 @@ router.use(checkAuth)
 
 router.get('/admin/dashboard', dashboardController.index)
 router.get('/admin/products', productController.index);
+
+const checkPermissions = function(req, res, next)  {
+    if (req.user.role === 'admin') {
+        next();
+    }else {
+        return res.send('error')
+    }
+}
+
+router.use(checkPermissions);
+
 router.get('/admin/products/create', productController.create);
 router.post('/admin/products/create', upload.none(), productController.store);
+router.get('/admin/products/:id/delete', productController.delete);
+router.get('/admin/products/search', productController.search);
 
 router.get('*', (req, res) => {
     res.render('admin/errors/404.ejs')

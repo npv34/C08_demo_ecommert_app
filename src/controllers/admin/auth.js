@@ -1,7 +1,8 @@
 class Auth {
     showFormLogin(req, res) {
-        console.log(req.flash())
-        res.render('admin/login');
+        let error = req.flash('message');
+        console.log(error)
+        res.render('admin/login', {error: error});
     }
 }
 
