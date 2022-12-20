@@ -53,7 +53,9 @@ app.use(Sentry.Handlers.requestHandler());
 // TracingHandler creates a trace for every incoming request
 app.use(Sentry.Handlers.tracingHandler());
 
-app.use('/', router);
+app.get('/', (req, res, next) => {
+    res.send('xin chao')
+})
 app.use(Sentry.Handlers.errorHandler());
 
 app.use((err, req, res, next) => {
