@@ -7,6 +7,7 @@ const flash = require('connect-flash');
 const Sentry = require('@sentry/node');
 const Tracing = require('@sentry/tracing');
 const router = require('./src/routes/web');
+const PORT = process.env.PORT || 3000
 
 const app = express();
 
@@ -63,6 +64,6 @@ app.use((err, req, res, next) => {
     res.status(500).render('admin/errors/500')
 })
 
-app.listen(3000, 'localhost', () => {
+app.listen(PORT, 'localhost', () => {
     console.log('server listening on port 3000')
 })
